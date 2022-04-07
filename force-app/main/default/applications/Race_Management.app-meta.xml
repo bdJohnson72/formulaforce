@@ -14,6 +14,7 @@
     <tabs>Race__c</tabs>
     <tabs>Driver__c</tabs>
     <tabs>Season__c</tabs>
+    <tabs>Race_Data__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Race_Management_UtilityBar</utilityBar>
 </CustomApplication>
