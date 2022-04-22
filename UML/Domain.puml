@@ -1,0 +1,66 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "FFLIB Domain" #DDDDDD{
+fflib_IDomain <|-- fflib_IObjects : extends
+fflib_IObjects <|-- fflib_Objects : implements
+fflib_IObjects <|-- fflib_ISObjects : extends
+fflib_Objects <|-- fflib_SObjects : extends
+fflib_ISObjects <|-- fflib_SObjects : implements
+fflib_IDomain <|-- fflib_ISObjectDomain : extends
+fflib_SObjects <|-- fflib_SObjectDomain : extends
+fflib_ISObjectDomain <|-- fflib_SObjectDomain : implements
+fflib_SObjects +-- ErrorFactory: inner class
+
+
+interface fflib_IDomain{
++ Object getType()
+
+ + List<Object> getObject()
+}
+
+interface fflib_ISObjectDomain{
+Schema.SObjectType getSObjectType()
+List<SObject> getSObjects()
+}
+
+interface fflib_IObjects{
++ Boolean contains(Object value)
++Boolean containsAll(List<Object> value)
++Boolean containsAll(Set<Object> value)
++Boolean containsNot(Object value)
++Boolean containsNot((List<Object> value)
++Boolean containsNot((Set<Object> value)
++Boolean isEmpty()
++Boolean isNotEmpty()
+}
+
+class fflib_Objects{
+protected List<Object> objects
++ virtual object getType()
++ List<Object> getObjects()
++Boolean contains(Object value)
++Boolean containsAll(List<Object> value)
++Boolean containsAll(Set<Object> value)
++Boolean containsNot(Object value)
++Boolean containsNot(List<Object> value)
++Boolean containsNot(Set<Object> value)
++Boolean isEmpty()
++Boolean isNotEmpty()
++ setObjects(List<Object> objects)
+}
+
+interface fflib_ISObjects{
+List<SObjects> getRecords()
+Set<Id> getRecords()
+SObjectType getSobjectType()
+}
+
+class fflib_SObjects{}
+class fflib_SObjectDomain{
+
+}
+
+class ErrorFactory{}
+}
+@enduml

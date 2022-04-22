@@ -122,8 +122,7 @@ public virtual class fflib_Application
 	/**
 	 * Simple Service Factory implementation
 	 **/
-	public virtual class ServiceFactory implements fflib_IServiceFactory
-	{
+	public virtual class ServiceFactory implements fflib_IServiceFactory{
 		protected Map<Type, Type> m_serviceInterfaceTypeByServiceImplType;
 
 		protected Map<Type, Object> m_serviceInterfaceTypeByMockService;

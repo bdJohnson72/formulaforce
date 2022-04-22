@@ -271,11 +271,12 @@ public virtual class fflib_SObjectUnitOfWork
         if (record.Id != null)
             throw new UnitOfWorkException('Only new records can be registered as new');
         String sObjectType = record.getSObjectType().getDescribe().getName();
-
+        System.debug('registered a new  ' + sObjectType);
 		assertForNonEventSObjectType(sObjectType);
-		assertForSupportedSObjectType(m_newListByType, sObjectType);
-
+        assertForSupportedSObjectType(m_newListByType, sObjectType);
+        System.debug('values in newListByType ' + m_newListByType);
         m_newListByType.get(sObjectType).add(record);
+        System.debug('values in newListByType ' + m_newListByType);
         if (relatedToParentRecord!=null && relatedToParentField!=null)
             registerRelationship(record, relatedToParentField, relatedToParentRecord);
     }
@@ -667,7 +668,11 @@ public virtual class fflib_SObjectUnitOfWork
 	{
 		for (Schema.SObjectType sObjectType : m_sObjectTypes)
 		{
+            System.debug('in the insert dml by type method');
+            System.debug('sobjType ' + sObjectType);
+
 			m_relationships.get(sObjectType.getDescribe().getName()).resolve();
+            System.debug('relationships ' );
 			m_dml.dmlInsert(m_newListByType.get(sObjectType.getDescribe().getName()));
 		}
 	}
@@ -712,7 +717,7 @@ public virtual class fflib_SObjectUnitOfWork
 		}
 	}
 
-	private void publishAfterSuccessEvents()
+    private void publishAfterSuccessEvents()
 	{
 		for (Schema.SObjectType sObjectType : m_sObjectTypes)
 		{
@@ -720,13 +725,13 @@ public virtual class fflib_SObjectUnitOfWork
 		}
 	}
 
-	private void publishAfterFailureEvents()
-	{
-		for (Schema.SObjectType sObjectType : m_sObjectTypes)
-		{
-			m_dml.eventPublish(m_publishAfterFailureListByType.get(sObjectType.getDescribe().getName()));
-		}
-	}
+    private void publishAfterFailureEvents()
+    {
+        for (Schema.SObjectType sObjectType : m_sObjectTypes)
+        {
+            m_dml.eventPublish(m_publishAfterFailureListByType.get(sObjectType.getDescribe().getName()));
+        }
+    }
 
 	@TestVisible
 	private void assertForNonEventSObjectType(String sObjectType)

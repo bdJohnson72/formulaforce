@@ -399,7 +399,8 @@ public virtual with sharing class fflib_SObjectDomain
 	/**
 	 * Calls the applicable override methods such as beforeInsert, beforeUpdate etc. based on a Trigger context
 	 **/
-	private static void triggerHandler(Type domainClass, Boolean isBefore, Boolean isAfter, Boolean isInsert, Boolean isUpdate, Boolean isDelete, Boolean isUndelete, List<SObject> newRecords, Map<Id, SObject> oldRecordsMap)
+	private static void triggerHandler(Type domainClass, Boolean isBefore, Boolean isAfter, Boolean isInsert, Boolean isUpdate,
+			Boolean isDelete, Boolean isUndelete, List<SObject> newRecords, Map<Id, SObject> oldRecordsMap)
 	{	
 		// After phase of trigger will reuse prior instance of domain class if ITriggerStateful implemented 
 		fflib_SObjectDomain domainObject = isBefore ? null : popTriggerInstance(domainClass, isDelete ? oldRecordsMap.values() : newRecords);
