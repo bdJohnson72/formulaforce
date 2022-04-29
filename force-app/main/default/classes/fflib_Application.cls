@@ -123,9 +123,28 @@ public virtual class fflib_Application
 	 * Simple Service Factory implementation
 	 **/
 	public virtual class ServiceFactory implements fflib_IServiceFactory{
-		protected Map<Type, Type> m_serviceInterfaceTypeByServiceImplType;
 
+		protected Map<Type, Type> m_serviceInterfaceTypeByServiceImplType;
 		protected Map<Type, Object> m_serviceInterfaceTypeByMockService;
+
+		protected Map<ServiceTypes, Type> serviceClassByRecordType;
+		protected Map<ServiceTypes, Object> mockServiceClassByRecordType;
+
+		public ServiceFactory(Map<ServiceTypes, Type> serviceClassByRecordType){
+			this.serviceClassByRecordType = serviceClassByRecordType;
+			this.mockServiceClassByRecordType = new Map<ServiceTypes, Object>();
+		}
+
+		public Object newInstanceByRecordType(ServiceTypes serviceType){
+			if(mockServiceClassByRecordType.containsKey(serviceType)){
+				return mockServiceClassByRecordType.get(serviceType);
+			}
+			Type serviceImplementation = serviceClassByRecordType.get(serviceType);
+			if (serviceImplementation == null) {
+				throw new fflib_Application.DeveloperException('No serviceImplementation');
+			}
+			return serviceImplementation.newInstance();
+		}
 
 		/**
 		 * Constructs a simple Service Factory

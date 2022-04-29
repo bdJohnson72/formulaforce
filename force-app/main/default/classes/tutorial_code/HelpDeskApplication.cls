@@ -18,14 +18,15 @@ public with sharing class HelpDeskApplication {
 
 	public static final fflib_Application.SelectorFactory selector = new fflib_Application.SelectorFactory(
 			new Map<SObjectType, Type>{
-					Case.SObjectType => CaseSelector.class
-			}
+					Case.SObjectType => CaseSelector.class}
 	);
 
-	public static final fflib_Application.DomainFactory domain = new fflib_Application.DomainFactory(
+	/*public static final fflib_Application.DomainFactory domain = new fflib_Application.DomainFactory(
 		HelpDeskApplication.selector,
-		new Map<SObjectType, Type>{Case.SObjectType => Cases.Constructor.class}
-	);
+		new Map<SObjectType, Type>{Case.SObjectType => Cases.Constructor.class,
+		Contact.SObjectType => Contacts.Constructor.class
+		}
+	);*/
 
 
 }
